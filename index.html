@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>72 Nombres de Dios - Estudio 90 Días</title>
+    <meta name="description" content="App para estudiar los 72 Nombres de Dios con meditación diaria">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root { --primary: #8b4513; --light: #f8f1e3; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin:0; padding:0; background: var(--light); color:#333; line-height:1.6; }
+        header { background: var(--primary); color:white; padding:15px; text-align:center; }
+        .container { max-width:900px; margin:20px auto; padding:0 15px; }
+        .dia { background:white; padding:25px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); margin-bottom:20px; }
+        .hebreo { font-size:3.2em; text-align:center; direction:rtl; letter-spacing:12px; margin:20px 0; color:#b8860b; }
+        .nav { display:flex; justify-content:space-between; margin:15px 0; }
+        button { padding:10px 18px; background:var(--primary); color:white; border:none; border-radius:6px; cursor:pointer; }
+        button:hover { background:#a0522d; }
+    </style>
+</head>
+<body>
+    <header><h1>🕎 72 Nombres de Dios</h1><p>Estudio Espiritual de 90 Días</p></header>
+    <div class="container">
+        <div style="text-align:center; font-weight:bold; color:var(--primary);">
+            Día <span id="current-day">1</span> de 90
+        </div>
+        <div class="nav">
+            <button onclick="prevDay()">← Día Anterior</button>
+            <button onclick="nextDay()">Día Siguiente →</button>
+        </div>
+        <div class="dia" id="content"></div>
+    </div>
+
+    <script>
+        const names72 = [
+            {id:1, name:"וָהוּ", trans:"Vehuiah", angel:"Vehuiah", salmo:"Salmo 3:3", significado:"Voluntad divina, nuevos comienzos"},
+            {id:5, name:"מַהַשׁ", trans:"Mahasiah", angel:"Mahasiah", salmo:"Salmo 34:4", significado:"Sanación física y emocional"},
+            {id:72, name:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", significado:"Totalidad e integración"}
+            // Puedes agregar los 72 completos después
+        ];
+
+        let currentDay = 1;
+
+        function loadDay(day) {
+            currentDay = Math.max(1, Math.min(90, day));
+            document.getElementById('current-day').textContent = currentDay;
+            const data = names72.find(n => n.id === currentDay) || {id:currentDay, name:"🔄", trans:"Integración", significado:"Reflexiona sobre lo aprendido"};
+            
+            document.getElementById('content').innerHTML = `
+                <h2>Día ${currentDay} - ${data.name}</h2>
+                <div class="hebreo">${data.name}</div>
+                <p><strong>${data.trans}</strong> — ${data.angel}</p>
+                <p><strong>Salmo:</strong> ${data.salmo}</p>
+                <h3>👁️ Meditación Visual</h3>
+                <p>Escanea las letras de derecha a izquierda lentamente. Visualiza luz dorada.</p>
+                <h3>💭 Reflexión</h3>
+                <p>${data.significado}</p>
+                <h3>🌟 Acción del día</h3>
+                <p>Aplica esta energía hoy en tu vida.</p>
+                <button onclick="completeDay()">✅ Completar Día</button>
+            `;
+        }
+
+        function nextDay(){ loadDay(currentDay+1); }
+        function prevDay(){ loadDay(currentDay-1); }
+        function completeDay(){ alert(`¡Día ${currentDay} completado!`); if(currentDay<90) nextDay(); }
+
+        window.onload = () => loadDay(1);
+    </script>
+</body>
+</html>
