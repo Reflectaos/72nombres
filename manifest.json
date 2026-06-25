@@ -1,0 +1,13 @@
+{
+  "name": "72 Nombres de Dios - Estudio 90 Días",
+  "short_name": "72 Nombres",
+  "description": "Método diario de estudio y meditación",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#f8f1e3",
+  "theme_color": "#8b4513",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
