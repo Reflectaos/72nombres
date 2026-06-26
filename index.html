@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>72 Nombres - Meditación Diaria</title>
+    <title>72 Nombres • Meditación Diaria</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#5c3310">
     
@@ -13,26 +13,43 @@
             --earth: #5c3310;
             --light: #f8f5eb;
             --dark: #2c1e12;
+            --bg: #f8f5eb;
+            --text: #333;
+            --card: white;
+        }
+        [data-theme="dark"] {
+            --bg: #1a140f;
+            --text: #e8d9c0;
+            --card: #2c2218;
+            --gold: #e8c670;
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
-            background: linear-gradient(135deg, #f8f5eb, #e8d9c0);
-            color: #333;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
+            transition: background 0.4s;
         }
         header { 
             background: var(--dark); 
             color: white; 
             text-align: center; 
-            padding: 2.5rem 1rem; 
+            padding: 2rem 1rem; 
+            position: relative;
         }
         .container { max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
-        .progress { text-align: center; font-size: 1.2rem; color: var(--earth); margin: 1rem 0; font-weight: 600; }
+        .progress-info { text-align: center; font-size: 1.1rem; margin: 10px 0; }
+        .progress-bar {
+            height: 10px;
+            background: var(--gold);
+            border-radius: 5px;
+            margin: 8px 0;
+        }
         .card {
-            background: white;
+            background: var(--card);
             border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(92, 51, 16, 0.15);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
             padding: 2.5rem;
             margin-bottom: 2rem;
         }
@@ -42,97 +59,79 @@
             direction: rtl;
             letter-spacing: 20px;
             color: var(--gold);
-            margin: 1.8rem 0;
-            text-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
-        }
-        .verse {
-            background: #f8f1e3;
-            border-left: 6px solid var(--gold);
-            padding: 1.5rem;
-            border-radius: 0 16px 16px 0;
-            margin: 2rem 0;
-            font-style: italic;
-            color: #444;
-        }
-        .info { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0; font-size: 1.05rem; }
-        .numerologia {
-            background: #f0e6d2;
-            padding: 1.2rem;
-            border-radius: 12px;
             margin: 1.5rem 0;
         }
+        .verse { background: #f8f1e3; border-left: 6px solid var(--gold); padding: 1.5rem; border-radius: 0 16px 16px 0; margin: 1.5rem 0; font-style: italic; }
+        [data-theme="dark"] .verse { background: #3c2a1f; color: #e8d9c0; }
+        .notes { margin-top: 2rem; }
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            resize: vertical;
+        }
+        [data-theme="dark"] textarea { background:#3c2a1f; color:#e8d9c0; border-color:#555; }
         button {
-            padding: 14px 32px;
+            padding: 12px 28px;
             background: var(--earth);
             color: white;
             border: none;
             border-radius: 50px;
-            font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.3s;
+            margin: 5px;
         }
-        button:hover { background: #8b5a2b; transform: translateY(-4px); }
-        .nav { display: flex; justify-content: space-between; margin: 1.5rem 0; }
-        .modal {
-            position: fixed; top:0; left:0; width:100%; height:100%; 
-            background:rgba(0,0,0,0.8); display: none; 
-            align-items:center; justify-content:center; z-index:1000;
-        }
-        .modal-content {
-            background:white; padding:2.8rem; border-radius:24px; 
-            max-width:640px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.3);
-        }
+        .nav { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin: 1.5rem 0; }
+        .modal { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); display: none; align-items:center; justify-content:center; z-index:1000; }
+        .modal-content { background: var(--card); color: var(--text); padding: 2.5rem; border-radius:24px; max-width:640px; text-align:center; }
+        .theme-toggle { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin: 1.5rem 0; }
     </style>
 </head>
 <body>
     <header>
         <h1>🕎 72 Nombres de Dios</h1>
-        <p>Estudio • Meditación • Transformación • 90 Días</p>
+        <p>90 Días de Transformación Espiritual</p>
+        <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
     </header>
 
     <div class="container">
-        <div class="progress">Día <strong id="current-day">1</strong> de 90</div>
+        <div class="progress-info">
+            Día <strong id="current-day">1</strong> de 90 
+            <span id="progress-text">— 0% completado</span>
+        </div>
+        <div class="progress-bar" id="progress-bar" style="width:0%"></div>
+
+        <!-- Estadísticas -->
+        <div class="card">
+            <h3>📊 Tus Estadísticas</h3>
+            <div class="stats" id="stats"></div>
+        </div>
+
         <div class="nav">
             <button onclick="prevDay()">← Anterior</button>
             <button onclick="nextDay()">Siguiente →</button>
         </div>
+
         <div class="card" id="content"></div>
     </div>
 
-    <!-- Modal de Bienvenida Mejorado -->
+    <!-- Modal Bienvenida -->
     <div class="modal" id="welcomeModal">
         <div class="modal-content">
-            <h2>Bienvenido/a al Camino de los 72 Nombres</h2>
-            
-            <p style="margin:1.8rem 0; font-size:1.15rem; line-height:1.7;">
-                <strong>Objetivo de esta página:</strong><br><br>
-                Acompañarte durante 90 días en un viaje espiritual profundo de conexión con Dios, 
-                utilizando los 72 Nombres Sagrados extraídos de Éxodo 14:19-21.
+            <h2>Bienvenido/a</h2>
+            <p style="margin:1.5rem 0; line-height:1.7;">
+                Esta es tu herramienta personal de 90 días con los 72 Nombres.<br><br>
+                <strong>Objetivo:</strong> Conectar con la energía divina, sanar y transformar tu vida día a día.
             </p>
-            
-            <p style="margin:1.5rem 0; color:#555;">
-                Cada día recibirás:
-            </p>
-            <ul style="text-align:left; display:inline-block; margin:1rem 0; color:#444;">
-                <li>👁️ Meditación visual con las letras hebreas</li>
-                <li>📖 Versículo del Salmo correspondiente</li>
-                <li>🔢 Gematria y numerología del Nombre</li>
-                <li>💭 Reflexión y acción práctica</li>
-            </ul>
-            
-            <p style="margin:2rem 0 1.5rem; font-style:italic;">
-                "Que estos Nombres abran caminos de luz, sanación y transformación en tu vida."
-            </p>
-            
-            <button onclick="startJourney()" style="width:100%; padding:18px; font-size:1.2rem;">
-                Comenzar mi viaje de 90 días
-            </button>
+            <button onclick="startJourney()" style="width:100%; padding:16px;">Comenzar el Camino</button>
         </div>
     </div>
 
-  
     <script>
-const names72 = [
+        // === ARRAY DE LOS 72 NOMBRES (pega aquí el array completo) ===
+  const names72 = [
     {num:1, hebreo:"וָהוּ", trans:"Vehuiah", angel:"Vehuiah", salmo:"Salmo 3:3", versiculo:"«Pero tú, Yahveh, eres escudo alrededor de mí; mi gloria, y el que levanta mi cabeza.»", numerologia:"Gematria: 21 - Nueva energía y protección", significado:"Voluntad divina, nuevos comienzos y fuerza interior"},
     {num:2, hebreo:"יְלִי", trans:"Jeliel", angel:"Jeliel", salmo:"Salmo 22:19", versiculo:"«Mas tú, Yahveh, no te alejes; fortaleza mía, apresúrate a socorrerme.»", numerologia:"Gematria: 50 - Transformación de la oscuridad", significado:"Amor y sabiduría, transformar oscuridad en luz"},
     {num:3, hebreo:"סִיט", trans:"Sitael", angel:"Sitael", salmo:"Salmo 91:2", versiculo:"«Diré yo a Yahveh: Esperanza mía y castillo mío; mi Dios, en quien confiaré.»", numerologia:"Gematria: 79 - Amor incondicional", significado:"Amor incondicional y protección"},
@@ -206,14 +205,41 @@ const names72 = [
     {num:71, hebreo:"הַיַי", trans:"Haiel", angel:"Haiel", salmo:"Salmo 109:30", versiculo:"«Alabaré a Yahveh en gran manera con mi boca, y en medio de muchos le alabaré.»", numerologia:"Gematria: 25 - Conexión directa", significado:"Conexión directa con lo Divino"},
     {num:72, hebreo:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", versiculo:"«Vuelve, oh alma mía, a tu reposo, porque Yahveh te ha hecho bien.»", numerologia:"Gematria: 86 - Totalidad", significado:"Totalidad, integración y éxito final"}
 ];
+
         let currentDay = 1;
+        let completedDays = new Set();
+
+        function saveProgress() {
+            localStorage.setItem('completed72', JSON.stringify([...completedDays]));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('completed72');
+            if (saved) completedDays = new Set(JSON.parse(saved));
+        }
+
+        function updateStats() {
+            const percent = Math.round((completedDays.size / 90) * 100);
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('progress-text').textContent = `— ${percent}% completado`;
+
+            document.getElementById('stats').innerHTML = `
+                <div><strong>${completedDays.size}</strong><br>Días completados</div>
+                <div><strong>${percent}%</strong><br>Progreso total</div>
+                <div><strong>${90 - completedDays.size}</strong><br>Días restantes</div>
+            `;
+        }
+
         function loadDay(day) {
             currentDay = Math.max(1, Math.min(90, day));
             localStorage.setItem('currentDay72', currentDay);
             document.getElementById('current-day').textContent = currentDay;
+            updateStats();
 
-            const name = names72.find(n => n.num === currentDay) || 
-                        {num:currentDay, hebreo:"🔄", trans:"Integración", salmo:"", versiculo:"Recuerda tu camino recorrido.", numerologia:"Gematria acumulada", significado:"Reflexiona sobre tu progreso"};
+            const name = names72.find(n => n.num === currentDay) || {hebreo:"🔄", trans:"Integración", significado:"Reflexiona"};
+
+            const isCompleted = completedDays.has(currentDay);
+            const savedNote = localStorage.getItem(`note_${currentDay}`) || '';
 
             document.getElementById('content').innerHTML = `
                 <h2>Día ${currentDay} — ${name.hebreo} (${name.trans})</h2>
@@ -225,35 +251,59 @@ const names72 = [
                 </div>
 
                 <div class="section">
-                    <h3>📖 Versículo del Salmo</h3>
+                    <h3>📖 Versículo</h3>
                     <div class="verse">${name.versiculo}</div>
                 </div>
 
                 <div class="numerologia">
-                    <strong>🔢 Numerología / Gematria:</strong><br>
-                    ${name.numerologia}
+                    <strong>🔢 Gematria:</strong> ${name.numerologia}
                 </div>
 
                 <div class="section">
-                    <h3>👁️ Meditación Visual</h3>
-                    <p>Respira profundamente. Escanea las letras de derecha a izquierda lentamente. Visualiza cada letra brillando con luz dorada que llena tu ser.</p>
+                    <h3>👁️ Meditación</h3>
+                    <p>Escanea las letras de derecha a izquierda y visualiza luz dorada.</p>
                 </div>
 
                 <div class="section">
                     <h3>💭 Reflexión</h3>
                     <p><strong>${name.significado}</strong></p>
-                    <p style="margin-top:12px;">¿Cómo puedo vivir esta energía hoy?</p>
                 </div>
 
-                <button onclick="completeDay()">✅ Completar Día ${currentDay}</button>
+                <div class="notes">
+                    <h3>📝 Mis Notas del Día</h3>
+                    <textarea id="noteInput" placeholder="Escribe aquí tus reflexiones, experiencias o gratitud...">${savedNote}</textarea>
+                    <button onclick="saveNote()">💾 Guardar Nota</button>
+                </div>
+
+                <button onclick="completeDay()" ${isCompleted ? 'disabled' : ''}>
+                    ${isCompleted ? '✅ Día Completado' : '✅ Marcar como Completado'}
+                </button>
             `;
+        }
+
+        function saveNote() {
+            const note = document.getElementById('noteInput').value.trim();
+            if (note) {
+                localStorage.setItem(`note_${currentDay}`, note);
+                alert("✅ Nota guardada correctamente");
+            }
+        }
+
+        function completeDay() {
+            completedDays.add(currentDay);
+            saveProgress();
+            updateStats();
+            alert(`¡Día ${currentDay} marcado como completado!`);
+            loadDay(currentDay);
         }
 
         function nextDay() { loadDay(currentDay + 1); }
         function prevDay() { loadDay(currentDay - 1); }
-        function completeDay() {
-            if (currentDay < 90) nextDay();
-            else alert("¡Felicidades! Has completado los 90 días de transformación.");
+
+        function toggleTheme() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('theme72', isDark ? 'light' : 'dark');
         }
 
         function startJourney() {
@@ -262,12 +312,19 @@ const names72 = [
         }
 
         window.onload = () => {
+            loadProgress();
+            const savedTheme = localStorage.getItem('theme72');
+            if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+
             const savedDay = localStorage.getItem('currentDay72');
-            if (savedDay) {
-                currentDay = parseInt(savedDay);
-                document.getElementById('welcomeModal').style.display = 'none';
+            if (savedDay) currentDay = parseInt(savedDay);
+
+            if (!localStorage.getItem('welcomeShown72')) {
+                document.getElementById('welcomeModal').style.display = 'flex';
+                localStorage.setItem('welcomeShown72', 'true');
+            } else {
+                loadDay(currentDay);
             }
-            loadDay(currentDay);
         };
     </script>
 </body>
