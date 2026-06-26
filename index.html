@@ -21,12 +21,7 @@
             color: #333;
             min-height: 100vh;
         }
-        header {
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem 1rem;
-        }
+        header { background: var(--dark); color: white; text-align: center; padding: 2rem 1rem; }
         .container { max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
         .progress { text-align: center; font-size: 1.2rem; color: var(--earth); margin: 1rem 0; font-weight: 600; }
         .card {
@@ -54,8 +49,13 @@
             font-style: italic;
             color: #444;
         }
-        .info { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0; }
-        .info p { flex: 1; min-width: 200px; }
+        .info { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0; font-size: 1.05rem; }
+        .numerologia {
+            background: #f0e6d2;
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+        }
         button {
             padding: 14px 32px;
             background: var(--earth);
@@ -68,6 +68,13 @@
         }
         button:hover { background: #8b5a2b; transform: translateY(-4px); }
         .nav { display: flex; justify-content: space-between; margin: 1.5rem 0; }
+        .modal {
+            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75);
+            display: none; align-items:center; justify-content:center; z-index:1000;
+        }
+        .modal-content {
+            background:white; padding:2.5rem; border-radius:20px; max-width:620px; text-align:center;
+        }
     </style>
 </head>
 <body>
@@ -78,16 +85,27 @@
 
     <div class="container">
         <div class="progress">Día <strong id="current-day">1</strong> de 90</div>
-
         <div class="nav">
             <button onclick="prevDay()">← Anterior</button>
             <button onclick="nextDay()">Siguiente →</button>
         </div>
-
         <div class="card" id="content"></div>
     </div>
-<script>
-   const names72 = [
+
+    <!-- Modal de Bienvenida -->
+    <div class="modal" id="welcomeModal">
+        <div class="modal-content">
+            <h2>Bienvenido/a al Camino de los 72 Nombres</h2>
+            <p style="margin:1.5rem 0; font-size:1.1rem;">
+                Durante 90 días conectarás con el poder de los 72 Nombres de Dios extraídos de Éxodo 14:19-21.<br><br>
+                Cada día incluye: meditación visual, salmo, numerología y acción práctica.
+            </p>
+            <button onclick="startJourney()" style="width:100%; padding:16px;">Comenzar mi viaje</button>
+        </div>
+    </div>
+
+    <script>
+const names72 = [
     {num:1, hebreo:"וָהוּ", trans:"Vehuiah", angel:"Vehuiah", salmo:"Salmo 3:3", versiculo:"«Pero tú, Yahveh, eres escudo alrededor de mí; mi gloria, y el que levanta mi cabeza.»", numerologia:"Gematria: 21 - Nueva energía y protección", significado:"Voluntad divina, nuevos comienzos y fuerza interior"},
     {num:2, hebreo:"יְלִי", trans:"Jeliel", angel:"Jeliel", salmo:"Salmo 22:19", versiculo:"«Mas tú, Yahveh, no te alejes; fortaleza mía, apresúrate a socorrerme.»", numerologia:"Gematria: 50 - Transformación de la oscuridad", significado:"Amor y sabiduría, transformar oscuridad en luz"},
     {num:3, hebreo:"סִיט", trans:"Sitael", angel:"Sitael", salmo:"Salmo 91:2", versiculo:"«Diré yo a Yahveh: Esperanza mía y castillo mío; mi Dios, en quien confiaré.»", numerologia:"Gematria: 79 - Amor incondicional", significado:"Amor incondicional y protección"},
@@ -161,13 +179,17 @@
     {num:71, hebreo:"הַיַי", trans:"Haiel", angel:"Haiel", salmo:"Salmo 109:30", versiculo:"«Alabaré a Yahveh en gran manera con mi boca, y en medio de muchos le alabaré.»", numerologia:"Gematria: 25 - Conexión directa", significado:"Conexión directa con lo Divino"},
     {num:72, hebreo:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", versiculo:"«Vuelve, oh alma mía, a tu reposo, porque Yahveh te ha hecho bien.»", numerologia:"Gematria: 86 - Totalidad", significado:"Totalidad, integración y éxito final"}
 ];
+
+        
         let currentDay = 1;
 
         function loadDay(day) {
             currentDay = Math.max(1, Math.min(90, day));
+            localStorage.setItem('currentDay72', currentDay);
             document.getElementById('current-day').textContent = currentDay;
 
-            const name = names72.find(n => n.num === currentDay) || {num:currentDay, hebreo:"🔄", trans:"Día de Integración", significado:"Reflexiona sobre tu camino"};
+            const name = names72.find(n => n.num === currentDay) || 
+                        {num:currentDay, hebreo:"🔄", trans:"Día de Integración", salmo:"", versiculo:"Recuerda tu camino.", numerologia:"Gematria acumulada", significado:"Reflexiona sobre tu progreso"};
 
             document.getElementById('content').innerHTML = `
                 <h2>Día ${currentDay} — ${name.hebreo} (${name.trans})</h2>
@@ -179,15 +201,18 @@
                 </div>
 
                 <div class="section">
-                    <h3>📖 Versículo Base</h3>
-                    <div class="verse">
-                        Éxodo 14:19-21 — "Y el Ángel de Dios... se movió detrás de ellos... y la columna de nube se movió de delante de ellos y se paró detrás de ellos... Y extendió Moisés su mano sobre el mar... y el mar se abrió."
-                    </div>
+                    <h3>📖 Versículo del Salmo</h3>
+                    <div class="verse">${name.versiculo}</div>
+                </div>
+
+                <div class="numerologia">
+                    <strong>🔢 Numerología / Gematria:</strong><br>
+                    ${name.numerologia}
                 </div>
 
                 <div class="section">
                     <h3>👁️ Meditación Visual</h3>
-                    <p>Respira profundamente. Escanea las letras de derecha a izquierda. Visualiza cada letra brillando con luz dorada que llena tu ser.</p>
+                    <p>Respira profundamente. Escanea las letras de derecha a izquierda. Visualiza cada letra brillando con luz dorada que llena tu cuerpo y tu vida.</p>
                 </div>
 
                 <div class="section">
@@ -196,22 +221,30 @@
                     <p style="margin-top:12px;">¿Cómo puedo vivir esta energía hoy?</p>
                 </div>
 
-                <button onclick="completeDay()">✅ Completar Día ${currentDay} y Continuar</button>
+                <button onclick="completeDay()">✅ Completar Día ${currentDay}</button>
             `;
         }
 
         function nextDay() { loadDay(currentDay + 1); }
         function prevDay() { loadDay(currentDay - 1); }
         function completeDay() {
-            if (currentDay < 90) {
-                alert(`¡Día ${currentDay} completado! Que la Luz te acompañe.`);
-                nextDay();
-            } else {
-                alert("¡Felicidades! Has completado los 90 días.");
-            }
+            if (currentDay < 90) nextDay();
+            else alert("¡Felicidades! Has completado los 90 días.");
         }
 
-        window.onload = () => loadDay(1);
+        function startJourney() {
+            document.getElementById('welcomeModal').style.display = 'none';
+            loadDay(currentDay);
+        }
+
+        window.onload = () => {
+            const savedDay = localStorage.getItem('currentDay72');
+            if (savedDay) {
+                currentDay = parseInt(savedDay);
+                document.getElementById('welcomeModal').style.display = 'none';
+            }
+            loadDay(currentDay);
+        };
     </script>
 </body>
 </html>
