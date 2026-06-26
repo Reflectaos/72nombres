@@ -3,40 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>72 Nombres de Dios - Estudio 90 Días</title>
-    <meta name="description" content="App para estudiar los 72 Nombres de Dios con meditación diaria">
+    <title>72 Nombres • Meditación Diaria</title>
+    <meta name="description" content="Estudio espiritual de los 72 Nombres de Dios - 90 días">
     <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#5c3310">
+    
     <style>
-        :root { --primary: #8b4513; --light: #f8f1e3; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; margin:0; padding:0; background: var(--light); color:#333; line-height:1.6; }
-        header { background: var(--primary); color:white; padding:15px; text-align:center; }
-        .container { max-width:900px; margin:20px auto; padding:0 15px; }
-        .dia { background:white; padding:25px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); margin-bottom:20px; }
-        .hebreo { font-size:3.2em; text-align:center; direction:rtl; letter-spacing:12px; margin:20px 0; color:#b8860b; }
-        .nav { display:flex; justify-content:space-between; margin:15px 0; }
-        button { padding:10px 18px; background:var(--primary); color:white; border:none; border-radius:6px; cursor:pointer; }
-        button:hover { background:#a0522d; }
+        :root {
+            --gold: #d4af37;
+            --earth: #5c3310;
+            --light: #f8f5eb;
+            --dark: #2c1e12;
+        }
+        
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #f8f5eb, #e8d9c0);
+            color: #333;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        header {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .container {
+            max-width: 820px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .progress {
+            text-align: center;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            color: var(--earth);
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(92, 51, 16, 0.15);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .hebreo {
+            font-size: 4.2rem;
+            text-align: center;
+            direction: rtl;
+            letter-spacing: 18px;
+            color: var(--gold);
+            margin: 1.5rem 0;
+            text-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            font-weight: 300;
+        }
+        .verse {
+            background: #f8f1e3;
+            border-left: 5px solid var(--gold);
+            padding: 1.2rem;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            margin: 1.5rem 0;
+            color: #444;
+        }
+        .section {
+            margin: 1.8rem 0;
+        }
+        h2 { color: var(--earth); margin-bottom: 0.8rem; font-size: 1.6rem; }
+        button {
+            padding: 14px 28px;
+            background: var(--earth);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: #8b5a2b;
+            transform: translateY(-3px);
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+        }
+        .tag {
+            display: inline-block;
+            background: var(--gold);
+            color: #2c1e12;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
-    <header><h1>🕎 72 Nombres de Dios</h1><p>Estudio Espiritual de 90 Días</p></header>
+    <header>
+        <h1>🕎 72 Nombres de Dios</h1>
+        <p>Estudio • Meditación • Transformación • 90 Días</p>
+    </header>
+
     <div class="container">
-        <div style="text-align:center; font-weight:bold; color:var(--primary);">
-            Día <span id="current-day">1</span> de 90
+        <div class="progress">
+            Día <strong id="current-day">1</strong> de 90
         </div>
+
         <div class="nav">
-            <button onclick="prevDay()">← Día Anterior</button>
-            <button onclick="nextDay()">Día Siguiente →</button>
+            <button onclick="prevDay()">← Anterior</button>
+            <button onclick="nextDay()">Siguiente →</button>
         </div>
-        <div class="dia" id="content"></div>
+
+        <div class="card" id="content">
+            <!-- Contenido cargado por JavaScript -->
+        </div>
     </div>
 
     <script>
-        const names72 = [
-            {id:1, name:"וָהוּ", trans:"Vehuiah", angel:"Vehuiah", salmo:"Salmo 3:3", significado:"Voluntad divina, nuevos comienzos"},
-            {id:5, name:"מַהַשׁ", trans:"Mahasiah", angel:"Mahasiah", salmo:"Salmo 34:4", significado:"Sanación física y emocional"},
-            {id:72, name:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", significado:"Totalidad e integración"}
-            // Puedes agregar los 72 completos después
+        const names = [
+            {num:1, hebreo:"וָהוּ", trans:"Vehuiah", angel:"Vehuiah", salmo:"Salmo 3:3", 
+             significado:"Voluntad divina y nuevos comienzos"},
+            // ... (aquí irán los 72 nombres completos)
+            {num:72, hebreo:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", 
+             significado:"Totalidad, finalización y éxito"}
         ];
 
         let currentDay = 1;
@@ -44,27 +136,52 @@
         function loadDay(day) {
             currentDay = Math.max(1, Math.min(90, day));
             document.getElementById('current-day').textContent = currentDay;
-            const data = names72.find(n => n.id === currentDay) || {id:currentDay, name:"🔄", trans:"Integración", significado:"Reflexiona sobre lo aprendido"};
-            
+
+            const name = names.find(n => n.num === currentDay) || 
+                        {num: currentDay, hebreo:"🔄", trans:"Integración", significado:"Reflexiona y consolida lo aprendido"};
+
             document.getElementById('content').innerHTML = `
-                <h2>Día ${currentDay} - ${data.name}</h2>
-                <div class="hebreo">${data.name}</div>
-                <p><strong>${data.trans}</strong> — ${data.angel}</p>
-                <p><strong>Salmo:</strong> ${data.salmo}</p>
-                <h3>👁️ Meditación Visual</h3>
-                <p>Escanea las letras de derecha a izquierda lentamente. Visualiza luz dorada.</p>
-                <h3>💭 Reflexión</h3>
-                <p>${data.significado}</p>
-                <h3>🌟 Acción del día</h3>
-                <p>Aplica esta energía hoy en tu vida.</p>
-                <button onclick="completeDay()">✅ Completar Día</button>
+                <h2>Día ${currentDay} — ${name.hebreo} (${name.trans})</h2>
+                <div class="hebreo">${name.hebreo}</div>
+                
+                <p><strong>Ángel:</strong> ${name.angel} &nbsp;&nbsp; <span class="tag">${name.salmo}</span></p>
+                
+                <div class="section">
+                    <h3>📖 Versículo Base</h3>
+                    <div class="verse">
+                        Éxodo 14:19-21 — El Ángel de Dios y la columna de nube se mueven detrás del campamento de Israel para protegerlo. 
+                        La nube separa a egipcios e israelitas. Moisés extiende su mano y el mar se divide.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>👁️ Meditación Visual</h3>
+                    <p>Respira profundamente. Escanea las letras de derecha a izquierda lentamente. Visualiza cada letra brillando con luz dorada.</p>
+                </div>
+
+                <div class="section">
+                    <h3>💭 Reflexión</h3>
+                    <p><strong>${name.significado}</strong><br><br>
+                    ¿Cómo puedo aplicar esta energía en mi vida hoy?</p>
+                </div>
+
+                <div class="section">
+                    <h3>🌱 Acción Práctica</h3>
+                    <p>Elige una acción concreta hoy que refleje este Nombre.</p>
+                </div>
+
+                <button onclick="completeDay()">✅ Completar Día ${currentDay}</button>
             `;
         }
 
-        function nextDay(){ loadDay(currentDay+1); }
-        function prevDay(){ loadDay(currentDay-1); }
-        function completeDay(){ alert(`¡Día ${currentDay} completado!`); if(currentDay<90) nextDay(); }
+        function nextDay() { loadDay(currentDay + 1); }
+        function prevDay() { loadDay(currentDay - 1); }
+        function completeDay() {
+            alert(`¡Día ${currentDay} completado! Que la Luz te acompañe.`);
+            if (currentDay < 90) nextDay();
+        }
 
+        // Iniciar
         window.onload = () => loadDay(1);
     </script>
 </body>
