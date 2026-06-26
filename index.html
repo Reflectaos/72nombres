@@ -21,7 +21,12 @@
             color: #333;
             min-height: 100vh;
         }
-        header { background: var(--dark); color: white; text-align: center; padding: 2rem 1rem; }
+        header { 
+            background: var(--dark); 
+            color: white; 
+            text-align: center; 
+            padding: 2.5rem 1rem; 
+        }
         .container { max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
         .progress { text-align: center; font-size: 1.2rem; color: var(--earth); margin: 1rem 0; font-weight: 600; }
         .card {
@@ -52,7 +57,7 @@
         .info { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1.5rem 0; font-size: 1.05rem; }
         .numerologia {
             background: #f0e6d2;
-            padding: 1rem;
+            padding: 1.2rem;
             border-radius: 12px;
             margin: 1.5rem 0;
         }
@@ -69,11 +74,13 @@
         button:hover { background: #8b5a2b; transform: translateY(-4px); }
         .nav { display: flex; justify-content: space-between; margin: 1.5rem 0; }
         .modal {
-            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75);
-            display: none; align-items:center; justify-content:center; z-index:1000;
+            position: fixed; top:0; left:0; width:100%; height:100%; 
+            background:rgba(0,0,0,0.8); display: none; 
+            align-items:center; justify-content:center; z-index:1000;
         }
         .modal-content {
-            background:white; padding:2.5rem; border-radius:20px; max-width:620px; text-align:center;
+            background:white; padding:2.8rem; border-radius:24px; 
+            max-width:640px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -92,15 +99,34 @@
         <div class="card" id="content"></div>
     </div>
 
-    <!-- Modal de Bienvenida -->
+    <!-- Modal de Bienvenida Mejorado -->
     <div class="modal" id="welcomeModal">
         <div class="modal-content">
             <h2>Bienvenido/a al Camino de los 72 Nombres</h2>
-            <p style="margin:1.5rem 0; font-size:1.1rem;">
-                Durante 90 días conectarás con el poder de los 72 Nombres de Dios extraídos de Éxodo 14:19-21.<br><br>
-                Cada día incluye: meditación visual, salmo, numerología y acción práctica.
+            
+            <p style="margin:1.8rem 0; font-size:1.15rem; line-height:1.7;">
+                <strong>Objetivo de esta página:</strong><br><br>
+                Acompañarte durante 90 días en un viaje espiritual profundo de conexión con Dios, 
+                utilizando los 72 Nombres Sagrados extraídos de Éxodo 14:19-21.
             </p>
-            <button onclick="startJourney()" style="width:100%; padding:16px;">Comenzar mi viaje</button>
+            
+            <p style="margin:1.5rem 0; color:#555;">
+                Cada día recibirás:
+            </p>
+            <ul style="text-align:left; display:inline-block; margin:1rem 0; color:#444;">
+                <li>👁️ Meditación visual con las letras hebreas</li>
+                <li>📖 Versículo del Salmo correspondiente</li>
+                <li>🔢 Gematria y numerología del Nombre</li>
+                <li>💭 Reflexión y acción práctica</li>
+            </ul>
+            
+            <p style="margin:2rem 0 1.5rem; font-style:italic;">
+                "Que estos Nombres abran caminos de luz, sanación y transformación en tu vida."
+            </p>
+            
+            <button onclick="startJourney()" style="width:100%; padding:18px; font-size:1.2rem;">
+                Comenzar mi viaje de 90 días
+            </button>
         </div>
     </div>
 
@@ -179,7 +205,6 @@ const names72 = [
     {num:71, hebreo:"הַיַי", trans:"Haiel", angel:"Haiel", salmo:"Salmo 109:30", versiculo:"«Alabaré a Yahveh en gran manera con mi boca, y en medio de muchos le alabaré.»", numerologia:"Gematria: 25 - Conexión directa", significado:"Conexión directa con lo Divino"},
     {num:72, hebreo:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", versiculo:"«Vuelve, oh alma mía, a tu reposo, porque Yahveh te ha hecho bien.»", numerologia:"Gematria: 86 - Totalidad", significado:"Totalidad, integración y éxito final"}
 ];
-
         let currentDay = 1;
 
         function loadDay(day) {
@@ -188,7 +213,7 @@ const names72 = [
             document.getElementById('current-day').textContent = currentDay;
 
             const name = names72.find(n => n.num === currentDay) || 
-                        {num:currentDay, hebreo:"🔄", trans:"Día de Integración", salmo:"", versiculo:"Recuerda tu camino.", numerologia:"Gematria acumulada", significado:"Reflexiona sobre tu progreso"};
+                        {num:currentDay, hebreo:"🔄", trans:"Integración", salmo:"", versiculo:"Recuerda tu camino recorrido.", numerologia:"Gematria acumulada", significado:"Reflexiona sobre tu progreso"};
 
             document.getElementById('content').innerHTML = `
                 <h2>Día ${currentDay} — ${name.hebreo} (${name.trans})</h2>
@@ -211,7 +236,7 @@ const names72 = [
 
                 <div class="section">
                     <h3>👁️ Meditación Visual</h3>
-                    <p>Respira profundamente. Escanea las letras de derecha a izquierda. Visualiza cada letra brillando con luz dorada que llena tu cuerpo y tu vida.</p>
+                    <p>Respira profundamente. Escanea las letras de derecha a izquierda lentamente. Visualiza cada letra brillando con luz dorada que llena tu ser.</p>
                 </div>
 
                 <div class="section">
@@ -228,7 +253,7 @@ const names72 = [
         function prevDay() { loadDay(currentDay - 1); }
         function completeDay() {
             if (currentDay < 90) nextDay();
-            else alert("¡Felicidades! Has completado los 90 días.");
+            else alert("¡Felicidades! Has completado los 90 días de transformación.");
         }
 
         function startJourney() {
