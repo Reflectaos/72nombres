@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>72 Nombres • Meditación Diaria</title>
-    <meta name="description" content="Estudio espiritual de los 72 Nombres de Dios - 90 días">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#5c3310">
     
@@ -15,90 +14,60 @@
             --light: #f8f5eb;
             --dark: #2c1e12;
         }
-        
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background: linear-gradient(135deg, #f8f5eb, #e8d9c0);
             color: #333;
             min-height: 100vh;
-            line-height: 1.6;
         }
         header {
             background: var(--dark);
             color: white;
             text-align: center;
             padding: 2rem 1rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
-        .container {
-            max-width: 820px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .progress {
-            text-align: center;
-            margin: 1rem 0;
-            font-size: 1.1rem;
-            color: var(--earth);
-        }
+        .container { max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
+        .progress { text-align: center; font-size: 1.2rem; color: var(--earth); margin: 1rem 0; font-weight: 600; }
         .card {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(92, 51, 16, 0.15);
-            padding: 2rem;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(92, 51, 16, 0.15);
+            padding: 2.5rem;
             margin-bottom: 2rem;
         }
         .hebreo {
-            font-size: 4.2rem;
+            font-size: 4.5rem;
             text-align: center;
             direction: rtl;
-            letter-spacing: 18px;
+            letter-spacing: 20px;
             color: var(--gold);
-            margin: 1.5rem 0;
-            text-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
-            font-weight: 300;
+            margin: 1.8rem 0;
+            text-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
         }
         .verse {
             background: #f8f1e3;
-            border-left: 5px solid var(--gold);
-            padding: 1.2rem;
-            border-radius: 0 12px 12px 0;
+            border-left: 6px solid var(--gold);
+            padding: 1.5rem;
+            border-radius: 0 16px 16px 0;
+            margin: 2rem 0;
             font-style: italic;
-            margin: 1.5rem 0;
             color: #444;
         }
-        .section {
-            margin: 1.8rem 0;
-        }
-        h2 { color: var(--earth); margin-bottom: 0.8rem; font-size: 1.6rem; }
+        .info { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1.5rem 0; }
+        .info p { flex: 1; min-width: 200px; }
         button {
-            padding: 14px 28px;
+            padding: 14px 32px;
             background: var(--earth);
             color: white;
             border: none;
             border-radius: 50px;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: 0.3s;
         }
-        button:hover {
-            background: #8b5a2b;
-            transform: translateY(-3px);
-        }
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            margin: 1.5rem 0;
-        }
-        .tag {
-            display: inline-block;
-            background: var(--gold);
-            color: #2c1e12;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
+        button:hover { background: #8b5a2b; transform: translateY(-4px); }
+        .nav { display: flex; justify-content: space-between; margin: 1.5rem 0; }
     </style>
 </head>
 <body>
@@ -108,27 +77,90 @@
     </header>
 
     <div class="container">
-        <div class="progress">
-            Día <strong id="current-day">1</strong> de 90
-        </div>
+        <div class="progress">Día <strong id="current-day">1</strong> de 90</div>
 
         <div class="nav">
             <button onclick="prevDay()">← Anterior</button>
             <button onclick="nextDay()">Siguiente →</button>
         </div>
 
-        <div class="card" id="content">
-            <!-- Contenido cargado por JavaScript -->
-        </div>
+        <div class="card" id="content"></div>
     </div>
 
     <script>
-        const names = [
-            {num:1, hebreo:"וָהוּ", trans:"Vehuiah", angel:"Vehuiah", salmo:"Salmo 3:3", 
-             significado:"Voluntad divina y nuevos comienzos"},
-            // ... (aquí irán los 72 nombres completos)
-            {num:72, hebreo:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", 
-             significado:"Totalidad, finalización y éxito"}
+        const names72 = [
+            {num:1, hebreo:"וָהוּ", trans:"Vehuiah", angel:"Vehuiah", salmo:"Salmo 3:3", significado:"Voluntad divina, nuevos comienzos y fuerza interior"},
+            {num:2, hebreo:"יְלִי", trans:"Jeliel", angel:"Jeliel", salmo:"Salmo 22:19", significado:"Amor y sabiduría, transformar oscuridad en luz"},
+            {num:3, hebreo:"סִיט", trans:"Sitael", angel:"Sitael", salmo:"Salmo 91:2", significado:"Amor incondicional y protección"},
+            {num:4, hebreo:"עֶלֶם", trans:"Elemiah", angel:"Elemiah", salmo:"Salmo 6:4", significado:"Protección suprema contra todo peligro"},
+            {num:5, hebreo:"מַהַשׁ", trans:"Mahasiah", angel:"Mahasiah", salmo:"Salmo 34:4", significado:"Sanación física, emocional y espiritual"},
+            {num:6, hebreo:"לְלֵה", trans:"Lelahel", angel:"Lelahel", salmo:"Salmo 9:11", significado:"Prosperidad y eliminación de bloqueos"},
+            {num:7, hebreo:"אַכָא", trans:"Achaiah", angel:"Achaiah", salmo:"Salmo 103:8", significado:"Apoyo divino en momentos de crisis"},
+            {num:8, hebreo:"כָּהַת", trans:"Cahetel", angel:"Cahetel", salmo:"Salmo 95:6", significado:"Comunicación clara y relaciones armoniosas"},
+            {num:9, hebreo:"הָזִי", trans:"Haziel", angel:"Haziel", salmo:"Salmo 25:6", significado:"Conexión con guías angélicos"},
+            {num:10, hebreo:"אַלַד", trans:"Aladiah", angel:"Aladiah", salmo:"Salmo 33:22", significado:"Presencia divina, combatir la soledad"},
+            {num:11, hebreo:"לָאוּ", trans:"Lauviah", angel:"Lauviah", salmo:"Salmo 18:46", significado:"Liberación de miedos y traumas"},
+            {num:12, hebreo:"הַהַע", trans:"Hahaiah", angel:"Hahaiah", salmo:"Salmo 10:1", significado:"Claridad mental y visión espiritual"},
+            {num:13, hebreo:"יֶזַל", trans:"Yezalel", angel:"Yezalel", salmo:"Salmo 98:4", significado:"Sanación a través de sueños"},
+            {num:14, hebreo:"מֵבַה", trans:"Mebahel", angel:"Mebahel", salmo:"Salmo 9:9", significado:"Inmortalidad del alma"},
+            {num:15, hebreo:"הַרִי", trans:"Hariel", angel:"Hariel", salmo:"Salmo 94:22", significado:"Liberación del ego y humildad"},
+            {num:16, hebreo:"הַקַם", trans:"Hekamiah", angel:"Hekamiah", salmo:"Salmo 88:1", significado:"Sanación total en todos los niveles"},
+            {num:17, hebreo:"לָאוּ", trans:"Lauviah", angel:"Lauviah", salmo:"Salmo 8:9", significado:"Fertilidad creativa y proyectos"},
+            {num:18, hebreo:"כַּלִי", trans:"Caliel", angel:"Caliel", salmo:"Salmo 7:8", significado:"Intelecto divino y decisiones sabias"},
+            {num:19, hebreo:"לֵוּו", trans:"Leuviah", angel:"Leuviah", salmo:"Salmo 40:1", significado:"Resurgimiento y salida de estancamiento"},
+            {num:20, hebreo:"פַּהַל", trans:"Pahaliah", angel:"Pahaliah", salmo:"Salmo 120:1", significado:"Libertad interior y superar adicciones"},
+            {num:21, hebreo:"נֵלַך", trans:"Nelchael", angel:"Nelchael", salmo:"Salmo 31:14", significado:"Reparación de relaciones"},
+            {num:22, hebreo:"יִיַי", trans:"Yeiayel", angel:"Yeiayel", salmo:"Salmo 121:5", significado:"Transformación profunda"},
+            {num:23, hebreo:"מֵלַה", trans:"Melahel", angel:"Melahel", salmo:"Salmo 121:8", significado:"Multiplicación de lo positivo"},
+            {num:24, hebreo:"חַהַו", trans:"Hahuiah", angel:"Hahuiah", salmo:"Salmo 33:18", significado:"Simplicidad y claridad mental"},
+            {num:25, hebreo:"נְתַה", trans:"Nithaiah", angel:"Nithaiah", salmo:"Salmo 9:1", significado:"Liberación de karma"},
+            {num:26, hebreo:"הַאַא", trans:"Haaiah", angel:"Haaiah", salmo:"Salmo 119:145", significado:"Visión intuitiva y tercer ojo"},
+            {num:27, hebreo:"יֶרַת", trans:"Yeratel", angel:"Yeratel", salmo:"Salmo 140:1", significado:"Silencio interior y paz mental"},
+            {num:28, hebreo:"שַׁאַה", trans:"Seheiah", angel:"Seheiah", salmo:"Salmo 71:12", significado:"Amor incondicional"},
+            {num:29, hebreo:"רֵיִי", trans:"Reiyel", angel:"Reiyel", salmo:"Salmo 54:4", significado:"Claridad de propósito y misión de vida"},
+            {num:30, hebreo:"אַוּם", trans:"Omael", angel:"Omael", salmo:"Salmo 71:5", significado:"Abundancia en todas las áreas"},
+            {num:31, hebreo:"לֶכַב", trans:"Lecabel", angel:"Lecabel", salmo:"Salmo 71:16", significado:"Humildad y gratitud"},
+            {num:32, hebreo:"וַשַׁר", trans:"Vasariah", angel:"Vasariah", salmo:"Salmo 33:4", significado:"Pasión y vitalidad"},
+            {num:33, hebreo:"יֵחַו", trans:"Yehuiah", angel:"Yehuiah", salmo:"Salmo 94:11", significado:"Revelación de dones ocultos"},
+            {num:34, hebreo:"לֶהַח", trans:"Lehahiah", angel:"Lehahiah", salmo:"Salmo 131:3", significado:"Libertad de elección"},
+            {num:35, hebreo:"כָּוַק", trans:"Chavakiah", angel:"Chavakiah", salmo:"Salmo 116:1", significado:"Claridad mental profunda"},
+            {num:36, hebreo:"מֵנַד", trans:"Menadel", angel:"Menadel", salmo:"Salmo 26:8", significado:"Prosperidad del alma"},
+            {num:37, hebreo:"אַנִי", trans:"Aniel", angel:"Aniel", salmo:"Salmo 80:3", significado:"Autoestima y fuerza interior"},
+            {num:38, hebreo:"חַעַם", trans:"Haamiah", angel:"Haamiah", salmo:"Salmo 91:9", significado:"Sanación del pasado"},
+            {num:39, hebreo:"רֵהַע", trans:"Rehael", angel:"Rehael", salmo:"Salmo 30:10", significado:"Escucha de la voz interior"},
+            {num:40, hebreo:"יֵיַז", trans:"Yeiazel", angel:"Yeiazel", salmo:"Salmo 88:14", significado:"Sincronía divina"},
+            {num:41, hebreo:"הַהַה", trans:"Hahahel", angel:"Hahahel", salmo:"Salmo 120:2", significado:"Revelación divina"},
+            {num:42, hebreo:"מִיכָאֵל", trans:"Mikael", angel:"Mikael", salmo:"Salmo 121:7", significado:"Protección y misión de vida"},
+            {num:43, hebreo:"וְוַל", trans:"Veuliah", angel:"Veuliah", salmo:"Salmo 88:13", significado:"Certeza y fe"},
+            {num:44, hebreo:"יְלָה", trans:"Yelahiah", angel:"Yelahiah", salmo:"Salmo 119:108", significado:"Conexión con ancestros"},
+            {num:45, hebreo:"סָאַל", trans:"Sealiah", angel:"Sealiah", salmo:"Salmo 94:18", significado:"Transformación total"},
+            {num:46, hebreo:"עַרִי", trans:"Ariel", angel:"Ariel", salmo:"Salmo 145:9", significado:"Conciencia superior y revelación"},
+            {num:47, hebreo:"עַשַׁל", trans:"Asaliah", angel:"Asaliah", salmo:"Salmo 92:5", significado:"Unidad y no-dualidad"},
+            {num:48, hebreo:"מִיה", trans:"Mihael", angel:"Mihael", salmo:"Salmo 98:2", significado:"Sanación física"},
+            {num:49, hebreo:"וָהוּ", trans:"Vehuel", angel:"Vehuel", salmo:"Salmo 145:3", significado:"Visión profunda"},
+            {num:50, hebreo:"דַנִי", trans:"Daniel", angel:"Daniel", salmo:"Salmo 145:8", significado:"Ecuanimidad emocional"},
+            {num:51, hebreo:"הַאַם", trans:"Hahasiah", angel:"Hahasiah", salmo:"Salmo 104:31", significado:"Pureza de intención"},
+            {num:52, hebreo:"עַמַם", trans:"Imamiah", angel:"Imamiah", salmo:"Salmo 7:17", significado:"Protección contra energías negativas"},
+            {num:53, hebreo:"נַנַא", trans:"Nanael", angel:"Nanael", salmo:"Salmo 119:75", significado:"Gracia divina"},
+            {num:54, hebreo:"נִיַת", trans:"Nithael", angel:"Nithael", salmo:"Salmo 103:19", significado:"Despertar espiritual"},
+            {num:55, hebreo:"מְבַה", trans:"Mebahiah", angel:"Mebahiah", salmo:"Salmo 102:12", significado:"Milagros en situaciones imposibles"},
+            {num:56, hebreo:"פּוֹי", trans:"Poiel", angel:"Poiel", salmo:"Salmo 145:14", significado:"Conexión universal"},
+            {num:57, hebreo:"נֵמַם", trans:"Nemamiah", angel:"Nemamiah", salmo:"Salmo 115:11", significado:"Transformar dolor en sabiduría"},
+            {num:58, hebreo:"יֵיַל", trans:"Yeialel", angel:"Yeialel", salmo:"Salmo 6:3", significado:"Despertar del alma"},
+            {num:59, hebreo:"הַרַח", trans:"Harahel", angel:"Harahel", salmo:"Salmo 113:3", significado:"Dirección correcta en la vida"},
+            {num:60, hebreo:"מִצַר", trans:"Mitzrael", angel:"Mitzrael", salmo:"Salmo 145:17", significado:"Eliminar juicios"},
+            {num:61, hebreo:"וּמַב", trans:"Umabel", angel:"Umabel", salmo:"Salmo 113:2", significado:"Prosperidad material"},
+            {num:62, hebreo:"יָהָה", trans:"Iah-hel", angel:"Iah-hel", salmo:"Salmo 119:159", significado:"Reconocimiento y merecimiento"},
+            {num:63, hebreo:"עַנַו", trans:"Anauel", angel:"Anauel", salmo:"Salmo 100:2", significado:"Confianza divina"},
+            {num:64, hebreo:"מַחִי", trans:"Mehiel", angel:"Mehiel", salmo:"Salmo 33:18", significado:"Memoria divina y conocimiento"},
+            {num:65, hebreo:"דַמַב", trans:"Damabiah", angel:"Damabiah", salmo:"Salmo 90:13", significado:"Eliminar tristeza"},
+            {num:66, hebreo:"מַנַק", trans:"Manakel", angel:"Manakel", salmo:"Salmo 38:21", significado:"Purificación energética"},
+            {num:67, hebreo:"אֵיַע", trans:"Eyael", angel:"Eyael", salmo:"Salmo 37:4", significado:"Sanación emocional y traumas"},
+            {num:68, hebreo:"חַבּוּ", trans:"Habuhiah", angel:"Habuhiah", salmo:"Salmo 106:1", significado:"Plenitud interior"},
+            {num:69, hebreo:"רַאַה", trans:"Rochel", angel:"Rochel", salmo:"Salmo 16:5", significado:"Paz interior profunda"},
+            {num:70, hebreo:"יָבַם", trans:"Yabamiah", angel:"Yabamiah", salmo:"Génesis 1:1", significado:"Claridad de consciencia"},
+            {num:71, hebreo:"הַיַי", trans:"Haiel", angel:"Haiel", salmo:"Salmo 109:30", significado:"Conexión directa con lo Divino"},
+            {num:72, hebreo:"מוּם", trans:"Mumiah", angel:"Mumiah", salmo:"Salmo 116:7", significado:"Totalidad, integración y éxito final"}
         ];
 
         let currentDay = 1;
@@ -137,51 +169,50 @@
             currentDay = Math.max(1, Math.min(90, day));
             document.getElementById('current-day').textContent = currentDay;
 
-            const name = names.find(n => n.num === currentDay) || 
-                        {num: currentDay, hebreo:"🔄", trans:"Integración", significado:"Reflexiona y consolida lo aprendido"};
+            const name = names72.find(n => n.num === currentDay) || {num:currentDay, hebreo:"🔄", trans:"Día de Integración", significado:"Reflexiona sobre tu camino"};
 
             document.getElementById('content').innerHTML = `
                 <h2>Día ${currentDay} — ${name.hebreo} (${name.trans})</h2>
                 <div class="hebreo">${name.hebreo}</div>
                 
-                <p><strong>Ángel:</strong> ${name.angel} &nbsp;&nbsp; <span class="tag">${name.salmo}</span></p>
-                
+                <div class="info">
+                    <p><strong>Ángel:</strong> ${name.angel}</p>
+                    <p><strong>Salmo:</strong> ${name.salmo}</p>
+                </div>
+
                 <div class="section">
                     <h3>📖 Versículo Base</h3>
                     <div class="verse">
-                        Éxodo 14:19-21 — El Ángel de Dios y la columna de nube se mueven detrás del campamento de Israel para protegerlo. 
-                        La nube separa a egipcios e israelitas. Moisés extiende su mano y el mar se divide.
+                        Éxodo 14:19-21 — "Y el Ángel de Dios... se movió detrás de ellos... y la columna de nube se movió de delante de ellos y se paró detrás de ellos... Y extendió Moisés su mano sobre el mar... y el mar se abrió."
                     </div>
                 </div>
 
                 <div class="section">
                     <h3>👁️ Meditación Visual</h3>
-                    <p>Respira profundamente. Escanea las letras de derecha a izquierda lentamente. Visualiza cada letra brillando con luz dorada.</p>
+                    <p>Respira profundamente. Escanea las letras de derecha a izquierda. Visualiza cada letra brillando con luz dorada que llena tu ser.</p>
                 </div>
 
                 <div class="section">
                     <h3>💭 Reflexión</h3>
-                    <p><strong>${name.significado}</strong><br><br>
-                    ¿Cómo puedo aplicar esta energía en mi vida hoy?</p>
+                    <p><strong>${name.significado}</strong></p>
+                    <p style="margin-top:12px;">¿Cómo puedo vivir esta energía hoy?</p>
                 </div>
 
-                <div class="section">
-                    <h3>🌱 Acción Práctica</h3>
-                    <p>Elige una acción concreta hoy que refleje este Nombre.</p>
-                </div>
-
-                <button onclick="completeDay()">✅ Completar Día ${currentDay}</button>
+                <button onclick="completeDay()">✅ Completar Día ${currentDay} y Continuar</button>
             `;
         }
 
         function nextDay() { loadDay(currentDay + 1); }
         function prevDay() { loadDay(currentDay - 1); }
         function completeDay() {
-            alert(`¡Día ${currentDay} completado! Que la Luz te acompañe.`);
-            if (currentDay < 90) nextDay();
+            if (currentDay < 90) {
+                alert(`¡Día ${currentDay} completado! Que la Luz te acompañe.`);
+                nextDay();
+            } else {
+                alert("¡Felicidades! Has completado los 90 días.");
+            }
         }
 
-        // Iniciar
         window.onload = () => loadDay(1);
     </script>
 </body>
